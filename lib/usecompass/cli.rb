@@ -59,7 +59,10 @@ module Usecompass
 
       violations = Usecompass.check(
         root_path: @options[:root_path] || Dir.pwd,
-        config_path: @options[:config_path]
+        config_path: @options[:config_path],
+        controllers_only: @options[:controllers_only],
+        specs_only: @options[:specs_only],
+        rakes_only: @options[:rakes_only]
       )
 
       reporter = Reporter.new(
@@ -72,7 +75,9 @@ module Usecompass
       # 違反がある場合は終了コード1で終了
       controller_count = violations[:controller_violations]&.size || 0
       usecase_count = violations[:usecase_violations]&.size || 0
-      exit(1) if controller_count > 0 || usecase_count > 0
+      rake_count = violations[:rake_violations]&.size || 0
+      rake_spec_count = violations[:rake_spec_violations]&.size || 0
+      exit(1) if controller_count > 0 || usecase_count > 0 || rake_count > 0 || rake_spec_count > 0
     end
 
     def parse_init_options
@@ -118,6 +123,18 @@ module Usecompass
         
         opts.on("-o", "--output FILE", "Output file") do |file|
           @options[:output] = File.open(file, 'w')
+        end
+        
+        opts.on("-C", "--controllers-only", "Check controllers only") do
+          @options[:controllers_only] = true
+        end
+        
+        opts.on("-S", "--specs-only", "Check usecase specs only") do
+          @options[:specs_only] = true
+        end
+        
+        opts.on("-R", "--rakes-only", "Check rake files only") do
+          @options[:rakes_only] = true
         end
         
         opts.on("-h", "--help", "Show this message") do
