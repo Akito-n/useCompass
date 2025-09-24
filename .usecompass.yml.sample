@@ -1,0 +1,21 @@
+# Sample configuration file for usecompass
+# Copy this to .usecompass.yml and customize as needed
+
+exclusions:
+  controllers:
+    # Controllers that don't need to call usecases
+    - "app/controllers/application_controller.rb"
+    - "app/controllers/admin/health_check_controller.rb"
+    - "app/controllers/api/v1/status_controller.rb"
+  
+  controller_actions:
+    # Specific controller actions that don't need to call usecases
+    - controller: "app/controllers/admin/dashboard_controller.rb"
+      actions: ["index", "show"]
+    - controller: "app/controllers/sessions_controller.rb"
+      actions: ["new", "create", "destroy"]
+  
+  usecase_specs:
+    # Usecases that don't need specs (e.g., legacy code)
+    - "layered/usecase/legacy/migration_usecase.rb"
+    - "layered/usecase/admin/temp_usecase.rb"
