@@ -39,7 +39,7 @@ module Usecompass
       parse_init_options
       
       root_path = @options[:root_path] || Dir.pwd
-      config_path = File.join(root_path, '.usecompass.yml')
+      config_path = File.join(root_path, 'usecompass.yml')
       
       if File.exist?(config_path) && !@options[:force]
         print "Configuration file already exists at #{config_path}. Overwrite? [y/N]: "
