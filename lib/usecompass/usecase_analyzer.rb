@@ -51,6 +51,13 @@ module Usecompass
     def derive_spec_path(usecase_file)
       relative_path = usecase_file.sub(@root_path + '/', '')
       
+      # Check for custom mapping first
+      custom_mapping = find_custom_usecase_mapping(relative_path)
+      if custom_mapping
+        return File.join(@root_path, custom_mapping)
+      end
+      
+      # Default mapping logic
       # layered/usecase/xxx/yyy_usecase.rb -> spec/layered/usecase/xxx/yyy_usecase_spec.rb
       if relative_path.start_with?('layered/')
         spec_path = relative_path.sub('layered/', 'spec/layered/')
@@ -66,6 +73,18 @@ module Usecompass
       spec_path = spec_path.sub('_usecase.rb', '_usecase_spec.rb')
       
       File.join(@root_path, spec_path)
+    end
+
+    def find_custom_usecase_mapping(usecase_file_relative_path)
+      custom_mappings = @config.dig('custom_mappings', 'usecases') || []
+      
+      custom_mappings.each do |mapping|
+        if mapping['usecase_file'] == usecase_file_relative_path
+          return mapping['spec_file']
+        end
+      end
+      
+      nil
     end
   end
 end

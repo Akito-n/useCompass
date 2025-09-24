@@ -39,11 +39,29 @@ module Usecompass
     def derive_spec_path(rake_file)
       relative_path = rake_file.sub(@root_path + '/', '')
       
-      # lib/tasks/xxx/yyy.rake -> spec/lib/tasks/xxx/yyy_spec.rb
+      # Check for custom mapping first
+      custom_mapping = find_custom_rake_mapping(relative_path)
+      if custom_mapping
+        return File.join(@root_path, custom_mapping)
+      end
+      
+      # Default mapping: lib/tasks/xxx/yyy.rake -> spec/lib/tasks/xxx/yyy_spec.rb
       spec_path = relative_path.sub('lib/', 'spec/lib/')
       spec_path = spec_path.sub('.rake', '_spec.rb')
       
       File.join(@root_path, spec_path)
+    end
+
+    def find_custom_rake_mapping(rake_file_relative_path)
+      custom_mappings = @config.dig('custom_mappings', 'rakes') || []
+      
+      custom_mappings.each do |mapping|
+        if mapping['rake_file'] == rake_file_relative_path
+          return mapping['spec_file']
+        end
+      end
+      
+      nil
     end
   end
 end
