@@ -174,6 +174,22 @@ module Usecompass
           usecase_specs:
             # Usecases that don't need specs (e.g., legacy code)
             # - "layered/usecase/legacy/migration_usecase.rb"
+          
+          rake_specs:
+            # Rake files that don't need specs
+            # - "lib/tasks/legacy/old_task.rake"
+
+        # Custom spec file mappings for non-standard naming
+        custom_mappings:
+          rakes:
+            # Map rake files to their corresponding spec files when naming doesn't follow convention
+            # - rake_file: "lib/tasks/hoge_one.rake"
+            #   spec_file: "spec/lib/tasks/hoge_one_1_spec.rb"
+          
+          usecases:
+            # Map usecase files to their corresponding spec files when naming doesn't follow convention
+            # - usecase_file: "layered/usecase/some_usecase.rb"
+            #   spec_file: "spec/layered/usecase/some_custom_spec.rb"
       YAML
 
       File.write(config_path, config_content)
