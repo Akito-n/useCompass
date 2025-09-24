@@ -26,7 +26,7 @@ $ gem install usecompass
 
 ### Initialize configuration
 
-Create a `.usecompass.yml` configuration file:
+Create a `usecompass.yml` configuration file:
 
 ```bash
 $ bundle exec usecompass init
@@ -46,7 +46,7 @@ $ bundle exec usecompass check
 
 #### Init command
 ```bash
-$ usecompass init                   # Create .usecompass.yml in current directory
+$ usecompass init                   # Create usecompass.yml in current directory
 $ usecompass init -r /path/to/project  # Create config in specified project
 $ usecompass init --force           # Force overwrite existing config file
 ```
@@ -60,7 +60,7 @@ $ usecompass --help                 # Show help
 
 ## Configuration
 
-Create a `.usecompass.yml` file in your project root to configure exclusions:
+Create a `usecompass.yml` file in your project root to configure exclusions:
 
 ```yaml
 exclusions:

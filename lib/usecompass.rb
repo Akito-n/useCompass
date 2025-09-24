@@ -11,7 +11,7 @@ module Usecompass
   class Error < StandardError; end
 
   def self.check(root_path: Dir.pwd, config_path: nil)
-    config_path ||= File.join(root_path, '.usecompass.yml')
+    config_path ||= File.join(root_path, 'usecompass.yml')
     config = ConfigLoader.new(config_path).load
     
     controller_violations = ControllerAnalyzer.new(root_path, config).analyze
