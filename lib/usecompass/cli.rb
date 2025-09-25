@@ -117,8 +117,12 @@ module Usecompass
           @options[:config_path] = path
         end
         
-        opts.on("-f", "--format FORMAT", "Output format (console)") do |format|
+        opts.on("-f", "--format FORMAT", "Output format (console, json)") do |format|
           @options[:format] = format.to_sym
+        end
+        
+        opts.on("--json", "Output results in JSON format (shorthand for -f json)") do
+          @options[:format] = :json
         end
         
         opts.on("-o", "--output FILE", "Output file") do |file|
