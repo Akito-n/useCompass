@@ -73,6 +73,11 @@ $ usecompass -C                     # Check controllers only
 $ usecompass -S                     # Check usecase specs only  
 $ usecompass -R                     # Check rake usecase calls only
 $ usecompass -R -S                  # Check rake specs only
+
+# Output format options
+$ usecompass --json                 # Output results in JSON format
+$ usecompass -f json                # Alternative way to output JSON
+$ usecompass --json -o report.json  # Output JSON to file
 ```
 
 ## Configuration
